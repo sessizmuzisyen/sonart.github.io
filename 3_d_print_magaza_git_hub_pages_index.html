@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3DCraftery | 3D Print Modeller</title>
+  <meta name="description" content="Uygun fiyatlı, anında indirilebilir 3B yazıcı (STL) modelleri. Kahve aksesuarları, minyatür evler, müzik temalı tasarımlar ve daha fazlası.">
+  <meta property="og:title" content="3DCraftery | 3D Print Modeller">
+  <meta property="og:description" content="Anında indirilebilir STL modeller. Kahve, müzik, dekor ve daha fazlası.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://raw.githubusercontent.com/your-username/your-repo/main/assets/og-cover.jpg">
+  <meta name="theme-color" content="#0ea5e9">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0c10; --panel:#111217; --muted:#9aa3b2; --text:#e6e7ea; --brand:#0ea5e9; --ok:#22c55e; --warn:#f59e0b;
+      --card:#141723; --card2:#151922; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:26px}
+    header{display:flex;align-items:center;gap:18px;justify-content:space-between;position:sticky;top:0;background:linear-gradient(180deg,rgba(11,12,16,.95),rgba(11,12,16,.80));backdrop-filter:saturate(140%) blur(6px);padding:14px 26px;border-bottom:1px solid #1f2430;z-index:40}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#0ea5e9,#60a5fa);box-shadow:var(--shadow)}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.4px}
+    .tag{font-size:12px;color:var(--muted)}
+    nav{display:flex;gap:12px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid #233045;background:#131826;border-radius:12px;color:#cbd5e1}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;margin:28px 0}
+    .hero-card{background:radial-gradient(80% 80% at 10% 10%,rgba(14,165,233,.12),transparent 60%),var(--card);border:1px solid #1f2433;border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+    .hero h2{font-size:36px;line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .chip{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:#0f172a;border:1px solid #1f2a44;color:#8fb5ff;font-size:12px}
+    .search{display:flex;gap:10px;margin-top:14px}
+    .search input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #25304a;background:#0f1320;color:#e2e8f0}
+    .search select{padding:12px;border-radius:12px;border:1px solid #25304a;background:#0f1320;color:#e2e8f0}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:960px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+    .card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent),var(--card2);border:1px solid #23283a;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .thumb{aspect-ratio:4/3;border-radius:12px;background:#0a0d16;border:1px solid #1c2235;display:grid;place-items:center;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .title{font-weight:600}
+    .meta{display:flex;justify-content:space-between;align-items:center;color:#a7b0c2;font-size:13px}
+    .price{font-weight:700;color:#e2f39b}
+    .tags{display:flex;flex-wrap:wrap;gap:6px}
+    .tags span{font-size:11px;color:#9fb3ff;background:#0f1a39;border:1px solid #233267;border-radius:999px;padding:4px 8px}
+    .actions{display:flex;gap:8px;margin-top:6px}
+    .primary{background:linear-gradient(135deg,#0ea5e9,#38bdf8);border:none;color:#0b1220;font-weight:700}
+    .secondary{background:#0f172a;border:1px solid #243049;color:#cbd5e1}
+    .primary,.secondary{padding:10px 12px;border-radius:10px;cursor:pointer}
+
+    footer{margin:40px 0 20px;color:#9aa3b2;text-align:center}
+    .credit{opacity:.7;font-size:12px;margin-top:6px}
+    .badge{position:absolute;top:12px;left:12px;background:#22c55e;color:#081318;border-radius:999px;padding:4px 8px;font-size:11px;border:1px solid #2e7d32}
+
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal.open{display:flex}
+    .modal .box{max-width:900px;width:100%;background:#0f1422;border:1px solid #22304a;border-radius:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}
+    @media(max-width:900px){.modal .box{grid-template-columns:1fr}}
+    .box .big{aspect-ratio:4/3;background:#0a0d16;border:1px solid #1c2235;border-radius:12px;overflow:hidden}
+    .box .big img{width:100%;height:100%;object-fit:cover}
+    .box h3{margin:0}
+    .box p{color:#bac1cf}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "3DCraftery",
+    "url": "https://your-username.github.io/",
+    "logo": "https://raw.githubusercontent.com/your-username/your-repo/main/assets/logo.png"
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>3DCraftery</h1>
+        <div class="tag">3D yazıcılar için STL mağazası</div>
+      </div>
+    </div>
+    <nav>
+      <a class="btn" href="#katalog">Katalog</a>
+      <a class="btn" href="#sss">SSS</a>
+      <a class="btn" href="mailto:info@ornekmail.com">İletişim</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <span class="chip">⚡ Anında indir • Ticari lisans opsiyonu</span>
+        <h2>Modern, temiz, <span style="color:var(--brand)">indirilebilir</span> 3D modeller</h2>
+        <p>Kahve ekipmanları, minyatür evler, müzik temalı objeler ve hediye fikirleri. Tüm modeller STL formatında, FDM/Resin uyumlu.</p>
+        <div class="search">
+          <input id="q" placeholder="Ara: kahve, v60 stand, minyatür..." />
+          <select id="cat">
+            <option value="">Tüm Kategoriler</option>
+            <option>Kahve</option>
+            <option>Dekor</option>
+            <option>Müzik</option>
+            <option>Oyun</option>
+          </select>
+          <button class="btn" id="filterBtn">Filtrele</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <ul style="margin:0 0 10px 18px;line-height:1.7;color:#c6d0e1">
+          <li>🧾 Ödeme: Gumroad / Etsy / Stripe Checkout linkleri</li>
+          <li>🔐 Güvenli indirme: satın alma sonrası otomatik link</li>
+          <li>📦 Lisans: Kişisel kullanım (ticari için ek lisans)</li>
+          <li>🌍 Kargo yok — dosya indir</li>
+        </ul>
+        <a class="btn" href="#sss">Lisans & SSS →</a>
+      </div>
+    </section>
+
+    <section id="katalog" class="grid"></section>
+
+    <section id="sss" style="margin-top:36px" class="hero-card">
+      <h3 style="margin:0 0 10px">SSS</h3>
+      <details>
+        <summary>Satın alma nasıl işliyor?</summary>
+        <p>Ürün kartındaki <b>Satın Al</b> butonu sizi ödeme sayfasına götürür (Gumroad/Etsy/Stripe). Ödeme sonrası STL dosyalarınızı hemen indirebilirsiniz.</p>
+      </details>
+      <details>
+        <summary>Hangi yazıcılarla uyumlu?</summary>
+        <p>STL formatı tüm yaygın dilimleyicilerle (PrusaSlicer, Cura, Bambu Studio) çalışır. Ürün açıklamasında önerilen katman, dolgu ve destek ayarlarını paylaşıyoruz.</p>
+      </details>
+      <details>
+        <summary>Lisans koşulları nedir?</summary>
+        <p>Kişisel kullanım lisansı dahildir. Büyük ölçekli satış/yeniden dağıtım için <a href="mailto:info@ornekmail.com">ticari lisans</a> talep edin.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="y"></span> 3DCraftery • <a href="mailto:info@ornekmail.com">E‑posta</a> • <a href="https://instagram.com/your-handle">Instagram</a>
+    <div class="credit">GitHub Pages üzerinde barındırılıyor.</div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <div class="big"><img id="mimg" alt=""></div>
+      <div>
+        <h3 id="mtitle"></h3>
+        <div class="tags" id="mtags"></div>
+        <p id="mdesc"></p>
+        <div class="meta"><span id="mprice" class="price"></span><span id="mlvl"></span></div>
+        <div class="actions">
+          <a id="mbuy" class="primary btn" target="_blank" rel="noopener">Satın Al</a>
+          <button class="secondary" onclick="closeModal()">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {
+        id:"caffitgo-stand",
+        title:"CaffitGo V60 Dripper Stand",
+        price: "₺129",
+        img:"assets/caffitgo-stand.jpg",
+        tags:["Kahve","Mutfak"],
+        level:"Kolay baskı",
+        link:"https://gumroad.com/your-caffitgo-link",
+        desc:"Minimal V60 standı. Desteksiz basım için optimize edildi. 0.2mm, %15 dolgu önerilir."
+      },
+      {
+        id:"mini-ev-01",
+        title:"Minyatür Ev #01 — Artasya",
+        price:"₺99",
+        img:"assets/mini-ev-01.jpg",
+        tags:["Dekor","Hobi"],
+        level:"Orta",
+        link:"https://etsy.com/listing/your-artasya-01",
+        desc:"Raf üstü minik ev. İki parçalı tasarım, kolay montaj."
+      },
+      {
+        id:"muzik-nota-vazo",
+        title:"Müzik Nota Vazosu",
+        price:"₺79",
+        img:"assets/muzik-nota-vazo.jpg",
+        tags:["Müzik","Dekor"],
+        level:"Kolay",
+        link:"https://gumroad.com/your-music-vase",
+        desc:"Nota motifli dekoratif vazo. Spiralize (vase mode) için ideal."
+      }
+    ];
+
+    const grid = document.querySelector('.grid');
+    const q = document.getElementById('q');
+    const cat = document.getElementById('cat');
+    const y = document.getElementById('y'); y.textContent = new Date().getFullYear();
+
+    function render(list){
+      grid.innerHTML = '';
+      if(!list.length){ grid.innerHTML = '<p style="color:#9aa3b2">Sonuç bulunamadı.</p>'; return; }
+      list.forEach(p=>{
+        const card = document.createElement('article');
+        card.className='card';
+        card.innerHTML = `
+          <div class="thumb"><img loading="lazy" src="${p.img}" alt="${p.title}"></div>
+          <div class="title">${p.title}</div>
+          <div class="meta"><span class="price">${p.price}</span><span>${p.level}</span></div>
+          <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+          <div class="actions">
+            <a class="btn primary" href="${p.link}" target="_blank" rel="noopener">Satın Al</a>
+            <button class="btn secondary" data-id="${p.id}">Önizle</button>
+          </div>
+        `;
+        card.querySelector('button[data-id]').addEventListener('click', ()=> openModal(p));
+        grid.appendChild(card);
+      });
+    }
+
+    function filter(){
+      const term = q.value.trim().toLowerCase();
+      const category = cat.value;
+      const out = products.filter(p => {
+        const matchText = (p.title + ' ' + p.desc + ' ' + p.tags.join(' ')).toLowerCase().includes(term);
+        const matchCat = !category || p.tags.includes(category);
+        return matchText && matchCat;
+      });
+      render(out);
+    }
+
+    function openModal(p){
+      document.getElementById('mimg').src = p.img;
+      document.getElementById('mtitle').textContent = p.title;
+      document.getElementById('mdesc').textContent = p.desc;
+      document.getElementById('mprice').textContent = p.price;
+      document.getElementById('mlvl').textContent = p.level;
+      document.getElementById('mtags').innerHTML = p.tags.map(t=>`<span>${t}</span>`).join('');
+      document.getElementById('mbuy').href = p.link;
+      document.getElementById('modal').classList.add('open');
+    }
+    function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+    document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+
+    document.getElementById('filterBtn').addEventListener('click', filter);
+    q.addEventListener('keydown', e=>{ if(e.key==='Enter') filter(); });
+
+    // İlk render
+    render(products);
+  </script>
+</body>
+</html>
